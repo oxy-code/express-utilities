@@ -1,6 +1,6 @@
 {
   "name": "@oxycode/express-utilities",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "This repo has list of commonly used express libraries",
   "main": "src/index.js",
   "scripts": {
