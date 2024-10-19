@@ -3,7 +3,7 @@ on:
   release:
     types: [published]
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -16,6 +16,6 @@ jobs:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci --omit=dev
-      - run: npm publish --provenance --access public
+      - run: npm publish --provenance --access public --tag ${{ github.ref }}
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          npm_config__auth: //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
