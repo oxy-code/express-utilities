@@ -1,5 +1,5 @@
 {
-  "name": "express-utilities",
+  "name": "@oxycode/express-utilities",
   "version": "1.0.0",
   "description": "This repo has list of commonly used express libraries",
   "main": "src/index.js",
