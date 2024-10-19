@@ -4,9 +4,7 @@
   "description": "This repo has list of commonly used express libraries",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "npm version patch",
-    "postpublish": "git add package.json && git commit -m \"version updated\""
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [
     "src",
