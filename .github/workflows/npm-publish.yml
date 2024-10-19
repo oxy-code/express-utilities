@@ -25,7 +25,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           npm config set //registry.npmjs.org/:_authToken $NODE_AUTH_TOKEN
           npm version patch
-          npm publish --scope ${{ secrets.NPM_USER }} --provenance --access public
+          npm publish --provenance --access public
           git add .
           git commit -m "Version Updated"
           git push
