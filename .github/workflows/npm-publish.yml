@@ -1,12 +1,14 @@
 name: Publish npm package
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - main
+
 jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       id-token: write
     steps:
       - uses: actions/checkout@v4
@@ -15,7 +17,13 @@ jobs:
         with:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
-      - run: npm ci --omit=dev
-      - run: npm publish --provenance --access public --tag ${{ github.ref }}
-        env:
-          npm_config__auth: //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
+      - name: Update .npmrc
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
+      - name: Install Dependencies
+        run: npm ci --omit=dev
+      - name: Publish package
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          npm publish --scope ${{ secrets.NPM_USER }} --provenance --access public
+          git push
