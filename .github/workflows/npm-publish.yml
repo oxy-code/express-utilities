@@ -21,14 +21,15 @@ jobs:
         run: npm ci --omit=dev
       - name: Publish package
         run: |
-          npm install -g npm-cli-login
-          npm-cli-login -u ${{ secrets.NPM_USER }} -p ${{ secrets.NPM_TOKEN }} -e velu_developer@yahoo.com -r https://registry.npmjs.org
+          # npm install -g npm-cli-login
+          # npm-cli-login -u ${{ secrets.NPM_USER }} -p ${{ secrets.NPM_TOKEN }} -e velu_developer@yahoo.com -r https://registry.npmjs.org
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # npm config set //registry.npmjs.org/:_authToken $NODE_AUTH_TOKEN
+          npm config set //registry.npmjs.org/:_authToken $NODE_AUTH_TOKEN
           npm version patch
           npm publish --provenance --access public
           git add .
           git commit -m "Version Updated"
           git push
-
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
