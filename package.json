@@ -10,6 +10,9 @@
     "src",
     "package.json"
   ],
+  "repository": {
+    "url": "https://github.com/oxy-code/express-utilities"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
