@@ -13,19 +13,16 @@ module.exports = {
     return jwt.sign(data, process.env.JWT_SECRET, options);
   },
   /**
-   * Express Middleware to authenticate a route
+   * authGuard - Express Middleware
+   * Used to authenticate a route
    * with jwt token from request header
-   * @param {*} err 
    * @param {*} req 
    * @param {*} res 
    * @param {*} next 
    * @returns 
    */
-  authenticate: function(err, req, res, next) {
-    if (err) {
-      next(err);
-    }
-    else if (!req.headers.authorization) {
+  authGuard: function(req, res, next) {
+    if (!req.headers.authorization) {
       const meta = {
         reqTrackingId: res.get('reqTrackingId'),
         payload: req.body || req.query,
@@ -39,7 +36,7 @@ module.exports = {
       });
     }
     else {
-      req.user = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
+      req.user = jwt.verify(req.headers.authorization.replace('Bearer ', ''), process.env.JWT_SECRET);
       next();
     }
   }
